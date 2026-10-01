@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, X, MapPin, Phone } from "lucide-react";
-import studioAsset from "@/assets/estudiojulyz.jpg.asset.json";
-const studio = studioAsset.url;
+const studio = "/estudio.png";
 const IG = "https://www.instagram.com/ink.julyz/";
 function IgIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className} aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" /></svg>);
@@ -147,8 +146,8 @@ function Index() {
         {/* Gallery */}
         <section id="trabalhos" className="border-t border-border mx-auto max-w-7xl px-5 py-24 md:px-10 md:py-32">
           <div className="reveal max-w-2xl">
-            <p className="eyebrow">Portfólio</p>
-            <h2 className="mt-4 text-4xl md:text-6xl">Arte na pele</h2>
+              <p className="eyebrow">Portfólio</p>
+              <h2 className="mt-4 text-4xl md:text-6xl">Galeria de Trabalhos</h2>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
               Uma ideia, uma referência, um significado. Explore os trabalhos e encontre inspiração para sua próxima tattoo.
             </p>
@@ -190,7 +189,7 @@ function Index() {
             </div>
             <div className="reveal">
               <p className="eyebrow">O estúdio</p>
-              <h2 className="mt-4 text-4xl md:text-6xl">Conheça a Ink Julyz</h2>
+              <h2 className="mt-4 text-4xl md:text-6xl">Nosso Espaço</h2>
               <span className="ink-stroke mt-8" />
               <p className="mt-8 text-lg leading-relaxed text-muted-foreground">
                 Nosso estúdio fica na Vila Curuçá, em São Paulo. Conheça o espaço e entre em contato para conversar sobre sua ideia, tirar dúvidas e consultar a disponibilidade.
@@ -297,7 +296,9 @@ function Lightbox({ index, setIndex }: { index: number; setIndex: (i: number | n
   const closeRef = useRef<HTMLButtonElement>(null);
   const prev = useCallback(() => setIndex((index - 1 + n) % n), [index, n, setIndex]);
   const next = useCallback(() => setIndex((index + 1) % n), [index, n, setIndex]);
-  const item = gallery[index]!;
+  const item = gallery[index];
+
+  if (!item) return null;
 
   useEffect(() => {
     const opener = document.activeElement as HTMLElement | null;
@@ -316,7 +317,9 @@ function Lightbox({ index, setIndex }: { index: number; setIndex: (i: number | n
       if (e.key === "ArrowRight") next();
       if (e.key === "Tab") {
         const f = document.querySelectorAll<HTMLElement>("[data-lb] button");
-        const first = f[0]!, last = f[f.length - 1]!;
+        const first = f[0];
+        const last = f[f.length - 1];
+        if (!first || !last) return;
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }
