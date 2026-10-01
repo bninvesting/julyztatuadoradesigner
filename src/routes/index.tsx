@@ -115,59 +115,60 @@ function Index() {
 
       <main id="conteudo">
         {/* Hero */}
-        <section id="inicio" className="relative flex min-h-[100svh] items-end overflow-hidden pt-24 md:items-center">
-          <img src={hero} alt="Tatuadora trabalhando em uma tatuagem de traço fino no antebraço" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover object-[70%_center]" fetchPriority="high" />
-          <div className="absolute inset-0 hero-shade" />
-          <div className="relative mx-auto w-full max-w-7xl px-5 pb-20 md:px-10 md:pb-0">
-            <div className="max-w-xl reveal">
+        <section id="inicio" className="relative overflow-hidden pt-28 md:pt-32">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-20 md:grid-cols-[1.2fr_1fr] md:gap-16 md:px-10 md:pb-28">
+            <div className="reveal">
               <p className="eyebrow flex items-center gap-2"><MapPin className="h-3.5 w-3.5" aria-hidden /> Vila Curuçá · São Paulo</p>
               <h1 className="mt-6 text-5xl leading-[1.02] md:text-7xl">
                 Sua história merece uma <em className="text-wine-soft">arte única.</em>
               </h1>
               <span className="ink-stroke mt-8" />
-              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+              <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
                 Uma ideia, uma memória ou uma nova forma de se expressar. Dê o primeiro passo para sua próxima tatuagem na Ink Julyz Tattoo Studio.
               </p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-wine"><WhatsIcon /> Conversar pelo WhatsApp</a>
-                <a href="#trabalhos" className="btn btn-line">Conhecer os trabalhos</a>
+                <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-wine"><WhatsIcon /> Solicitar meu orçamento</a>
+                <a href="#trabalhos" className="btn btn-line">Ver trabalhos</a>
               </div>
+            </div>
+            <div className="reveal relative mx-auto w-full max-w-md">
+              <span className="absolute -bottom-4 -right-4 h-full w-full border border-wine pointer-events-none" aria-hidden />
+              <img src={gallery[0]!.src} alt={gallery[0]!.alt} width={505} height={398} fetchPriority="high" className="relative block h-auto w-full" />
             </div>
           </div>
         </section>
 
         {/* Gallery */}
-        <section id="trabalhos" className="mx-auto max-w-7xl px-5 py-24 md:px-10 md:py-32">
-          <div className="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <p className="eyebrow">Trabalhos</p>
-              <h2 className="mt-4 text-4xl md:text-6xl">Arte que vive na pele</h2>
-            </div>
-            <p className="max-w-sm text-sm text-muted-foreground">
-              As imagens marcadas como “Referência visual” são ilustrativas e serão substituídas pelos trabalhos reais do estúdio.
+        <section id="trabalhos" className="border-t border-border mx-auto max-w-7xl px-5 py-24 md:px-10 md:py-32">
+          <div className="reveal max-w-2xl">
+            <p className="eyebrow">Portfólio</p>
+            <h2 className="mt-4 text-4xl md:text-6xl">Arte na pele</h2>
+            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+              Cada pessoa tem uma ideia, uma referência, um significado. Explore os trabalhos e encontre inspiração para sua próxima tattoo.
             </p>
           </div>
-          <ul className="mt-14 grid auto-rows-[260px] grid-cols-1 gap-4 sm:grid-cols-2 md:auto-rows-[280px] md:grid-cols-3">
+          <ul className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
             {gallery.map((g, i) => (
-              <li key={g.src} className={`reveal ${g.span ?? ""}`}>
-                <button
-                  onClick={() => setOpen(i)}
-                  className="group relative block h-full w-full overflow-hidden bg-card"
-                  aria-label={`Ampliar imagem: ${g.alt}`}
-                >
-                  <img src={g.src} alt={g.alt} width={g.width} height={g.height} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                  {g.reference && (
-                    <span className="absolute left-3 top-3 bg-background/80 px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">
-                      Referência visual
-                    </span>
-                  )}
-                </button>
+              <li key={g.src} className={`reveal ${g.featured ? "md:col-span-2 md:mx-auto md:w-3/4" : ""}`}>
+                <figure>
+                  <button
+                    onClick={() => setOpen(i)}
+                    className="group relative block w-full overflow-hidden bg-card"
+                    aria-label={`Ampliar imagem: ${g.alt}`}
+                  >
+                    <img src={g.src} alt={g.alt} width={g.width} height={g.height} loading="lazy" decoding="async" className="mx-auto block h-auto max-h-[560px] w-auto max-w-full transition-opacity duration-500 group-hover:opacity-90" />
+                  </button>
+                  <figcaption className="mt-3 text-sm text-muted-foreground">{g.alt}</figcaption>
+                </figure>
               </li>
             ))}
           </ul>
           <div className="reveal mt-20 flex flex-col items-center border-t border-border pt-16 text-center">
-            <h3 className="text-3xl md:text-5xl">Já tem uma ideia para sua próxima tattoo?</h3>
-            <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-wine mt-8"><WhatsIcon /> Quero conversar sobre minha ideia</a>
+            <h3 className="max-w-3xl text-3xl md:text-5xl">Qual ideia você quer transformar em tatuagem?</h3>
+            <p className="mt-6 max-w-xl text-muted-foreground">
+              Envie sua referência, o tamanho aproximado e a região do corpo. Converse com o estúdio para consultar valores e disponibilidade.
+            </p>
+            <a href="https://wa.me/5511999556871" target="_blank" rel="noopener noreferrer" className="btn btn-wine mt-8"><WhatsIcon /> Enviar minha ideia pelo WhatsApp</a>
           </div>
         </section>
 
