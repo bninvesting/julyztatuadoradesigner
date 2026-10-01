@@ -1,7 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, X, MapPin, Phone } from "lucide-react";
-import studio from "@/assets/studio.jpg";
+import studioAsset from "@/assets/estudiojulyz.jpg.asset.json";
+const studio = studioAsset.url;
+const IG = "https://www.instagram.com/ink.julyz/";
+function IgIcon({ className = "h-5 w-5" }: { className?: string }) {
+  return (<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className} aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" /></svg>);
+}
 import { gallery } from "@/lib/gallery";
 
 const WA =
@@ -32,7 +37,7 @@ export const Route = createFileRoute("/")({
 const NAV = [
   { href: "#inicio", label: "Início" },
   { href: "#trabalhos", label: "Trabalhos" },
-  { href: "#estudio", label: "Estúdio" },
+  { href: "#estudio", label: "O estúdio" },
   { href: "#contato", label: "Contato" },
 ];
 
@@ -83,6 +88,7 @@ function Index() {
                 {n.label}
               </a>
             ))}
+            <a href={IG} target="_blank" rel="noopener noreferrer" aria-label="Instagram @ink.julyz" className="text-muted-foreground hover:text-foreground"><IgIcon /></a>
             <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-wine !py-2.5 !px-4">
               Solicitar orçamento
             </a>
@@ -105,6 +111,7 @@ function Index() {
                 {n.label}
               </a>
             ))}
+            <a href={IG} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 py-3 text-muted-foreground"><IgIcon /> @ink.julyz</a>
             <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-wine mt-4 w-full">
               Solicitar orçamento
             </a>
@@ -123,16 +130,16 @@ function Index() {
               </h1>
               <span className="ink-stroke mt-8" />
               <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
-                Uma ideia, uma memória ou uma nova forma de se expressar. Dê o primeiro passo para sua próxima tatuagem na Ink Julyz Tattoo Studio.
+                Conheça os trabalhos da Ink Julyz Tattoo Studio e converse com a gente sobre sua próxima tatuagem.
               </p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-wine"><WhatsIcon /> Solicitar meu orçamento</a>
-                <a href="#trabalhos" className="btn btn-line">Ver trabalhos</a>
+                <a href="#trabalhos" className="btn btn-line">Conhecer os trabalhos</a>
               </div>
             </div>
-            <div className="reveal relative mx-auto w-full max-w-md">
+            <div className="reveal relative mx-auto w-full">
               <span className="absolute -bottom-4 -right-4 h-full w-full border border-wine pointer-events-none" aria-hidden />
-              <img src={gallery[0]!.src} alt={gallery[0]!.alt} width={505} height={398} fetchPriority="high" className="relative block h-auto w-full" />
+              <img src={studio} alt="Interior da Ink Julyz Tattoo Studio, com paredes azuis, leque decorativo, flores e maca" width={1920} height={1440} fetchPriority="high" className="relative block h-auto w-full brightness-110" />
             </div>
           </div>
         </section>
@@ -143,7 +150,7 @@ function Index() {
             <p className="eyebrow">Portfólio</p>
             <h2 className="mt-4 text-4xl md:text-6xl">Arte na pele</h2>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              Cada pessoa tem uma ideia, uma referência, um significado. Explore os trabalhos e encontre inspiração para sua próxima tattoo.
+              Uma ideia, uma referência, um significado. Explore os trabalhos e encontre inspiração para sua próxima tattoo.
             </p>
           </div>
           <ul className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
@@ -162,12 +169,15 @@ function Index() {
               </li>
             ))}
           </ul>
-          <div className="reveal mt-20 flex flex-col items-center border-t border-border pt-16 text-center">
-            <h3 className="max-w-3xl text-3xl md:text-5xl">Qual ideia você quer transformar em tatuagem?</h3>
-            <p className="mt-6 max-w-xl text-muted-foreground">
-              Envie sua referência, o tamanho aproximado e a região do corpo. Converse com o estúdio para consultar valores e disponibilidade.
-            </p>
-            <a href="https://wa.me/5511999556871" target="_blank" rel="noopener noreferrer" className="btn btn-wine mt-8"><WhatsIcon /> Enviar minha ideia pelo WhatsApp</a>
+        </section>
+
+        {/* Instagram */}
+        <section className="bg-paper text-ink">
+          <div className="reveal mx-auto flex max-w-4xl flex-col items-center px-5 py-24 text-center md:py-28">
+            <IgIcon className="h-10 w-10 text-wine" />
+            <h2 className="mt-6 text-4xl md:text-5xl">Acompanhe a Ink Julyz no Instagram</h2>
+            <p className="mt-5 max-w-xl text-lg opacity-80">Explore mais trabalhos e referências para sua próxima tattoo.</p>
+            <a href={IG} target="_blank" rel="noopener noreferrer" className="btn btn-wine mt-8"><IgIcon /> Visitar @ink.julyz</a>
           </div>
         </section>
 
@@ -175,21 +185,17 @@ function Index() {
         <section id="estudio" className="bg-card">
           <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-24 md:grid-cols-2 md:gap-20 md:px-10 md:py-32">
             <div className="reveal relative">
-              <img src={studio} alt="Referência visual: ambiente de estúdio de tatuagem com iluminação suave" width={1024} height={1280} loading="lazy" className="aspect-[4/5] w-full object-cover" />
-              <span className="absolute left-3 top-3 bg-background/80 px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground">Referência visual</span>
-              <span className="absolute -bottom-4 -right-4 hidden h-full w-full border border-wine md:block -z-0 pointer-events-none" aria-hidden />
+              <img src={studio} alt="Detalhes do estúdio: flash de tatuagens na parede, ring light, estante e mesa de atendimento" width={1920} height={1440} loading="lazy" className="relative z-10 aspect-[4/5] w-full object-cover object-right brightness-110" />
+              <span className="absolute -bottom-4 -right-4 hidden h-full w-full border border-wine md:block pointer-events-none" aria-hidden />
             </div>
             <div className="reveal">
               <p className="eyebrow">O estúdio</p>
-              <h2 className="mt-4 text-4xl md:text-6xl">Um espaço para a sua expressão</h2>
+              <h2 className="mt-4 text-4xl md:text-6xl">Conheça a Ink Julyz</h2>
               <span className="ink-stroke mt-8" />
               <p className="mt-8 text-lg leading-relaxed text-muted-foreground">
-                A Ink Julyz Tattoo Studio fica na Vila Curuçá, em São Paulo, e nasceu para transformar ideias, memórias e histórias pessoais em arte na pele.
+                Nosso estúdio fica na Vila Curuçá, em São Paulo. Conheça o espaço e entre em contato para conversar sobre sua ideia, tirar dúvidas e consultar a disponibilidade.
               </p>
-              <p className="mt-4 leading-relaxed text-muted-foreground">
-                Cada projeto começa com uma conversa: você conta o que imagina e, juntos, encontramos o caminho para uma tatuagem que seja realmente sua.
-              </p>
-              {/* Biografia e especialidades: preencher quando as informações forem enviadas pela tatuadora. */}
+              <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-wine mt-8"><WhatsIcon /> Conversar com o estúdio</a>
             </div>
           </div>
         </section>
@@ -216,7 +222,10 @@ function Index() {
           <p className="reveal mt-10 max-w-2xl text-muted-foreground">
             O envio da mensagem inicia a conversa — o agendamento é confirmado diretamente pelo estúdio.
           </p>
-          <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-wine mt-8"><WhatsIcon /> Solicitar orçamento</a>
+          <div className="reveal mt-16 border-t border-border pt-14 text-center">
+            <h3 className="mx-auto max-w-3xl text-3xl md:text-5xl">Qual ideia você quer transformar em tatuagem?</h3>
+            <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-wine mt-8"><WhatsIcon /> Enviar minha ideia</a>
+          </div>
         </section>
 
         {/* Contact */}
@@ -233,12 +242,17 @@ function Index() {
                 <div><p className="eyebrow !text-muted-foreground">Endereço</p><address className="mt-1 not-italic text-lg">{ADDRESS}</address></div>
               </div>
               <div className="flex gap-4">
+                <IgIcon className="mt-1 h-5 w-5 shrink-0 text-wine-soft" />
+                <div><p className="eyebrow !text-muted-foreground">Instagram</p><a href={IG} target="_blank" rel="noopener noreferrer" className="mt-1 block text-lg hover:text-wine-soft">@ink.julyz</a></div>
+              </div>
+              <div className="flex gap-4">
                 <Phone className="mt-1 h-5 w-5 shrink-0 text-wine-soft" aria-hidden />
                 <div><p className="eyebrow !text-muted-foreground">Telefone e WhatsApp</p><a href="tel:+5511999556871" className="mt-1 block text-lg hover:text-wine-soft">(11) 99955-6871</a></div>
               </div>
-              <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="flex flex-col flex-wrap gap-3 sm:flex-row">
                 <a href={MAPS} target="_blank" rel="noopener noreferrer" className="btn btn-line">Como chegar</a>
-                <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-wine"><WhatsIcon /> Falar com o estúdio</a>
+                <a href={WA} target="_blank" rel="noopener noreferrer" className="btn btn-wine"><WhatsIcon /> Falar pelo WhatsApp</a>
+                <a href={IG} target="_blank" rel="noopener noreferrer" className="btn btn-line"><IgIcon /> Visitar Instagram</a>
               </div>
             </div>
           </div>
@@ -254,6 +268,7 @@ function Index() {
           <div className="text-sm text-muted-foreground space-y-1">
             <p>{ADDRESS}</p>
             <p><a href="tel:+5511999556871" className="hover:text-foreground">(11) 99955-6871</a></p>
+            <p><a href={IG} target="_blank" rel="noopener noreferrer" className="hover:text-foreground">@ink.julyz</a></p>
           </div>
           <nav aria-label="Rodapé" className="flex flex-wrap gap-6 text-sm">
             {NAV.map((n) => <a key={n.href} href={n.href} className="text-muted-foreground hover:text-foreground">{n.label}</a>)}
