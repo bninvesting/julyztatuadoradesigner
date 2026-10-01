@@ -282,7 +282,7 @@ function Lightbox({ index, setIndex }: { index: number; setIndex: (i: number | n
   const closeRef = useRef<HTMLButtonElement>(null);
   const prev = useCallback(() => setIndex((index - 1 + n) % n), [index, n, setIndex]);
   const next = useCallback(() => setIndex((index + 1) % n), [index, n, setIndex]);
-  const item = gallery[index];
+  const item = gallery[index]!;
 
   useEffect(() => {
     const opener = document.activeElement as HTMLElement | null;
@@ -301,7 +301,7 @@ function Lightbox({ index, setIndex }: { index: number; setIndex: (i: number | n
       if (e.key === "ArrowRight") next();
       if (e.key === "Tab") {
         const f = document.querySelectorAll<HTMLElement>("[data-lb] button");
-        const first = f[0], last = f[f.length - 1];
+        const first = f[0]!, last = f[f.length - 1]!;
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
         else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
       }
