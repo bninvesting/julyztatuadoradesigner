@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, X, MapPin, Phone } from "lucide-react";
-import hero from "@/assets/hero.jpg";
 import studio from "@/assets/studio.jpg";
 import { gallery } from "@/lib/gallery";
 
